@@ -20,15 +20,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityResultLauncher<Intent> mARL = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-
-                }
-            });
-
+    //Modern way
     private ActivityResultLauncher<Void> mActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.TakePicturePreview(),
             new ActivityResultCallback<Bitmap>() {
@@ -66,7 +58,11 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Deprecrated way
                 takePicture();
+
+                //Modern way
+                //updatedTakePicture();
             }
         });
     }
@@ -85,10 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Deprecrated way
     public void takePicture() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
     }
+
+    //Modern way
     public void updatedTakePicture() {
         mActivityResultLauncher.launch(null);
     }
